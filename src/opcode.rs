@@ -68,9 +68,11 @@ pub mod types {
         _priv: (),
     }
 
+    #[derive(Clone, Copy)]
     #[repr(transparent)]
     pub struct Fd(pub RawFd);
 
+    #[derive(Clone, Copy)]
     #[repr(transparent)]
     pub struct Fixed(pub u32);
 
