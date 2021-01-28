@@ -13,25 +13,31 @@ categories = [ "asynchronous", "network-programming", "filesystem" ]
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [workspace]
-exclude = [ "loom-ringbuf" ]
+exclude = [ "loom-ringbuf", "ocalls" ]
 members = [ "io-uring-test" ]
 
 [features]
+default = [ "libc" ]
 concurrent = [ "parking_lot" ]
 unstable = []
 overwrite = [ "bindgen" ]
 direct-syscall = [ "sc" ]
+sgx = [ "sgx_types", "sgx_tstd", "sgx_trts", "sgx_libc" ]
 
 [dependencies]
-libc = "0.2"
+libc = { version = "0.2", optional = true }
 bitflags = "1"
 parking_lot = { version = "0.11", optional = true }
 sc = { version = "0.2", optional = true }
-
+sgx_types = { path = "../incubator-teaclave-sgx-sdk/sgx_types", optional = true }
+sgx_tstd = { path = "../incubator-teaclave-sgx-sdk/sgx_tstd", optional = true, features = ["backtrace"] }
+sgx_trts = { path = "../incubator-teaclave-sgx-sdk/sgx_trts", optional = true }
+sgx_libc = { path = "../incubator-teaclave-sgx-sdk/sgx_libc", optional = true }
 [build-dependencies]
 bindgen = { version = "0.56", optional = true }
 
 [dev-dependencies]
+tempfile = "3"
 anyhow = "1"
 nix = "0.19"
 lazy_static = "1"

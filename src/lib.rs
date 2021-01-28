@@ -2,6 +2,20 @@
 //!
 //! The crate only provides a summary of the parameters.
 //! For more detailed documentation, see manpage.
+#![cfg_attr(sgx, no_std)]
+
+#[cfg(sgx)]
+extern crate sgx_types;
+#[cfg(sgx)]
+#[macro_use]
+extern crate sgx_tstd as std;
+#[cfg(sgx)]
+extern crate sgx_libc as libc;
+#[cfg(sgx)]
+extern crate sgx_trts;
+
+#[cfg(feature = "sgx")]
+use std::prelude::v1::*;
 
 #[macro_use]
 mod util;

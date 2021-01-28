@@ -152,6 +152,7 @@ impl<'a> Submitter<'a> {
     /// This operation replaces existing files in the registered file set with new ones,
     /// either turning a sparse entry (one where fd is equal to -1) into a real one, removing an existing entry (new one is set to -1),
     /// or replacing an existing entry with a new existing entry.
+    #[cfg(not(feature = "sgx"))]
     pub fn register_files_update(&self, offset: u32, fds: &[RawFd]) -> io::Result<usize> {
         let fu = sys::io_uring_files_update {
             offset,
@@ -166,6 +167,13 @@ impl<'a> Submitter<'a> {
             fds.len() as _,
         )?;
         Ok(ret as _)
+    }
+
+    #[cfg(feature = "sgx")]
+    pub fn register_files_update(&self, _offset: u32, _fds: &[RawFd]) -> io::Result<usize> {
+        // We need some special treatment to pass arguments that contain
+        // pointers through OCalls.
+        unimplemented!()
     }
 
     /// This works just like [Submitter::register_eventfd],

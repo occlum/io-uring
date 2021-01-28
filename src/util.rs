@@ -40,11 +40,18 @@ impl Mmap {
         }
     }
 
+    #[cfg(not(feature = "sgx"))]
     pub fn dontfork(&self) -> io::Result<()> {
         match unsafe { libc::madvise(self.addr.as_ptr(), self.len, libc::MADV_DONTFORK) } {
             0 => Ok(()),
             _ => Err(io::Error::last_os_error()),
         }
+    }
+
+    #[cfg(feature = "sgx")]
+    pub fn dontfork(&self) -> io::Result<()> {
+        // Do nothing for SGX
+        Ok(())
     }
 
     #[inline]

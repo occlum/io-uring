@@ -6,8 +6,11 @@ mod squeue;
 use std::io;
 
 pub use cqueue::CompletionQueue;
+#[cfg(not(feature = "sgx"))]
 use parking_lot::Mutex;
 pub use squeue::SubmissionQueue;
+#[cfg(feature = "sgx")]
+use std::sync::SgxMutex as Mutex;
 
 /// Concurrent IoUring instance
 pub struct IoUring {
@@ -24,6 +27,20 @@ impl IoUring {
             ring,
             push_lock: Mutex::new(()),
         }
+    }
+
+    /// Start a thread that runs a busy-loop of calling io_uring_enter syscall.
+    ///
+    /// This method is intended to emulate the SQPOLL mode of io_uring at the
+    /// user space. This is very useful as Linux kernerl's current support of the
+    /// SQLPOLL mode is quite limited and buggy.
+    ///
+    /// This method is unsafe since the thread does not know when the resources associted
+    /// with the io_uring instance will be released. So to use this function safely,
+    /// the user needs to ensure the io_uring will not be destroyed after starting
+    /// the thread.
+    pub unsafe fn start_enter_syscall_thread(&self) {
+        self.ring.start_enter_syscall_thread();
     }
 
     /// Initiate and/or complete asynchronous I/O
