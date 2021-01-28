@@ -1,0 +1,43 @@
+enclave {
+    from "sgx_tstd.edl" import *;
+    from "sgx_stdio.edl" import *;
+    from "sgx_backtrace.edl" import *;
+    from "sgx_tstdc.edl" import *;
+    from "sgx_net.edl" import *;
+    from "sgx_thread.edl" import *;
+
+    untrusted {
+        int ocall_io_uring_register_syscall(
+            long syscall_code, 
+            long fd, 
+            long opcode,
+            [in, size=arg_size, count=nr_args] const void* arg,
+            long nr_args,
+            long arg_size
+        );
+        int ocall_io_uring_setup_syscall(
+            long syscall_code, 
+            long entries, 
+            [in, out, size=p_size] void* p, 
+            long p_size
+        );
+        int ocall_io_uring_enter_syscall(
+            long syscall_code, 
+            long fd, 
+            long to_submit, 
+            long min_complete, 
+            long flags, 
+            [in, size=sig_size] const void* sig, 
+            long sig_size
+        );
+        void ocall_start_enter_syscall_thread(
+            long syscall_code, 
+            long fd, 
+            long to_submit, 
+            long min_complete, 
+            long flags, 
+            [in, size=sig_size] const void* sig, 
+            long sig_size
+        );
+    };
+};
