@@ -1,0 +1,11 @@
+[package]
+name = "app"
+version = "1.0.0"
+build = "build.rs"
+
+[dependencies]
+sgx-io-uring-ocalls = { path = "../../../ocalls" }
+sgx_types = { path = "../../../../incubator-teaclave-sgx-sdk/sgx_types" }
+sgx_urts = { path = "../../../../incubator-teaclave-sgx-sdk/sgx_urts" }
+
+[workspace]
