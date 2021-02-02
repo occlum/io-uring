@@ -2,16 +2,16 @@
 //!
 //! The crate only provides a summary of the parameters.
 //! For more detailed documentation, see manpage.
-#![cfg_attr(sgx, no_std)]
+#![cfg_attr(feature = "sgx", no_std)]
 
-#[cfg(sgx)]
+#[cfg(feature = "sgx")]
 extern crate sgx_types;
-#[cfg(sgx)]
+#[cfg(feature = "sgx")]
 #[macro_use]
 extern crate sgx_tstd as std;
-#[cfg(sgx)]
+#[cfg(feature = "sgx")]
 extern crate sgx_libc as libc;
-#[cfg(sgx)]
+#[cfg(feature = "sgx")]
 extern crate sgx_trts;
 
 #[cfg(feature = "sgx")]
@@ -152,6 +152,10 @@ impl IoUring {
     #[inline]
     pub fn params(&self) -> &Parameters {
         &self.params
+    }
+
+    pub unsafe fn start_enter_syscall_thread(&self) {
+        sys::start_enter_syscall_thread(self.fd.as_raw_fd());
     }
 
     /// Initiate and/or complete asynchronous I/O
