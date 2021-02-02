@@ -1,6 +1,5 @@
 extern crate libc;
 extern crate sgx_types;
-extern crate sgx_urts;
 
 use libc::syscall;
 use sgx_types::{c_int, c_long, c_void};

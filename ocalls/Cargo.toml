@@ -4,11 +4,10 @@ version = "1.0.0"
 authors = ["The Occlum team"]
 
 [lib]
-crate-type = ["staticlib"]
+crate-type = ["lib"]
 
 [workspace]
 
 [dependencies]
 sgx_types = { path = "../../incubator-teaclave-sgx-sdk/sgx_types" }
-sgx_urts = { path = "../../incubator-teaclave-sgx-sdk/sgx_urts" }
 libc = "0.2"
