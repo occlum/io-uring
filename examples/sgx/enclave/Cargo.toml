@@ -10,7 +10,7 @@ crate-type = ["staticlib"]
 default = []
 
 [dependencies]
-io-uring = { path = "../../../../io-uring", default-features = false, features = ["sgx"] }
+io-uring = { path = "../../../../io-uring", features = ["sgx"] }
 slab = { git = "https://github.com/tokio-rs/slab.git", default-features = false }
 
 [target.'cfg(not(target_env = "sgx"))'.dependencies]

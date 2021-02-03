@@ -27,6 +27,6 @@ This example combines tcp_echo example of io_uring and hello-rust example of inc
     - prepare environments for incubator-teaclave-sgx-sdk. Make sure that the hello-rust samplecode of incubator-teaclave-sgx-sdk can run.
         
 2. Add **io_uring** crate in dependencies of your enclave's Cargo.toml.
-    - ```io-uring = { path = "your_directory/io-uring", default-features = false, features = ["sgx"] }```
+    - ```io-uring = { path = "your_directory/io-uring", features = ["sgx"] }```
 3. Include ```your_directory/io-uring/ocalls/sgx_io_uring_ocalls.edl``` to your ```Enclave.edl``` and ```Makefile``` (see ```./enclave/Enclave.edl``` and ```./Makefile```)
 4. Add ```sgx-io-uring-ocalls``` crate in dependencies of your app's Cargo.toml and import ```sgx-io-uring-ocalls```. (see ```./app/Cargo.toml``` and ```./app/src/Main.rs```)
