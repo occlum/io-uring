@@ -9,5 +9,5 @@ crate-type = ["lib"]
 [workspace]
 
 [dependencies]
-sgx_types = { path = "../../incubator-teaclave-sgx-sdk/sgx_types" }
+sgx_types = { path = "../../rust-sgx-sdk/sgx_types" }
 libc = "0.2"
