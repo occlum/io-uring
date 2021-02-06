@@ -29,10 +29,10 @@ libc = { version = "0.2", optional = true }
 bitflags = "1"
 parking_lot = { version = "0.11", optional = true }
 sc = { version = "0.2", optional = true }
-sgx_types = { path = "../incubator-teaclave-sgx-sdk/sgx_types", optional = true }
-sgx_tstd = { path = "../incubator-teaclave-sgx-sdk/sgx_tstd", optional = true, features = ["backtrace"] }
-sgx_trts = { path = "../incubator-teaclave-sgx-sdk/sgx_trts", optional = true }
-sgx_libc = { path = "../incubator-teaclave-sgx-sdk/sgx_libc", optional = true }
+sgx_types = { path = "../rust-sgx-sdk/sgx_types", optional = true }
+sgx_tstd = { path = "../rust-sgx-sdk/sgx_tstd", optional = true, features = ["backtrace"] }
+sgx_trts = { path = "../rust-sgx-sdk/sgx_trts", optional = true }
+sgx_libc = { path = "../rust-sgx-sdk/sgx_libc", optional = true }
 [build-dependencies]
 bindgen = { version = "0.56", optional = true }
 
